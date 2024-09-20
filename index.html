@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coder's Portfolio</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Courier New', monospace; /* Terminal font style */
+            background-color: #000; /* Black background for terminal effect */
+            color: #ffffff; /* Terminal green text color */
+        }
+        canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+        header, main, footer {
+            position: relative;
+            z-index: 1;
+            padding: 20px;
+        }
+        header h1, footer p {
+            text-align: center;
+            text-shadow: 0 0 5px rgba(0, 255, 0, 0.8), 
+                         0 0 10px rgba(0, 255, 0, 0.6), 
+                         0 0 20px rgba(0, 255, 0, 0.5); /* Terminal glow effect */
+        }
+        section h2, section p, section a {
+            text-shadow: 0 0 5px rgba(0, 255, 0, 0.8), 
+                         0 0 10px rgba(0, 255, 0, 0.6), 
+                         0 0 20px rgba(0, 255, 0, 0.5); /* Terminal glow for section content */
+        }
+        a {
+            color: #00ff00; /* Terminal green */
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        main {
+            padding-bottom: 50px; /* Extra padding to ensure scroll space */
+        }
+        section {
+            margin-bottom: 40px;
+        }
+        .skills ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        .skills li {
+            text-shadow: 0 0 5px rgba(0, 255, 0, 0.8), 
+                         0 0 10px rgba(0, 255, 0, 0.6), 
+                         0 0 20px rgba(0, 255, 0, 0.5); /* Glow for list items */
+        }
+        p{
+            color: #00ff00; /* Terminal green */
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="matrixCanvas"></canvas>
+
+    <header>
+        <h1>Welcome to My Portfolio</h1>
+        <p>Showcasing My Skills, Projects, and Achievements</p>
+    </header>
+    
+    <main>
+        <section class="intro">
+            <h2>About Me</h2>
+            <p>Hi, I'm Akshaykumar a passionate developer specializing in backend developement,AI and mobile apps . I love turning ideas into real-world applications.</p>
+        </section>
+
+        <section class="skills">
+            <h2>Skills</h2>
+            <ul>
+                <li>JavaScript, TypeScript, Express, NodeJs</li>
+                <li>Python, Django, Flask, FastApi</li>
+                <li>Machine Learning, Deep Learning, Langchain, LLM</li>
+                <li>Flutter, Dart</li>
+                <li>MySQL, MongoDB, PostGresSQL</li>
+                <li>Git, Github, Vercel, AWS, Azure</li>
+                <li>Rust, Go, C, Java</li>
+            </ul>
+        </section>
+
+        <section class="projects">
+            <h2>Projects</h2>
+            
+            <div class="project">
+                <h3>Price Trail</h3>
+                <p>PriceTrail is a web scraping application built using Next.js that allows users to track the prices of e-commerce products. It notifies users when the price drops or when a product is back in stock. This README file provides a comprehensive guide to help you install, set up, and run the PriceTrail application locally on your machine.<p>
+                <a href="https://github.com/MRMORNINGSTAR2233/PriceTrail-m.git">View Project</a>
+            </div>
+
+            <div class="project">
+                <h3>Geo Drive</h3>
+                <p>It is a cutting-edge mobile app designed to provide users with sustainable and eco-friendly traffic solutions.</p>
+                <a href="https://github.com/MRMORNINGSTAR2233/Hack_here.git">View Project</a>
+            </div>
+
+            <div class="project">
+                <h3>Pixify.AI</h3>
+                <p>A mobile app built with Flutter that generates images based on user prompts using the Stability AI API and stores them in MongoDB.</p>
+                <a href="https://github.com/MRMORNINGSTAR2233/7DaysFlutterSeries/tree/main/Day_7">View Project</a>
+            </div>
+        </section>
+
+        <section class="contact">
+            <h2>Contact Me</h2>
+            <p>If you'd like to get in touch, feel free to reach out through email or connect with me on LinkedIn.</p>
+            <ul>
+                <li>Email: <a href="mailto:scriptsages2209@gmail.com">scriptsages2209@gmail.com</a></li>
+                <li>LinkedIn: <a href="https://www.linkedin.com/in/akshay-kumar-hegde" target="_blank">Akshaykumar</a></li>
+            </ul>
+        </section>
+    </main>
+    
+    <footer>
+        <p>&copy; 2024 Coder's Portfolio | Created with 💻 by Akshaykumar</p>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script>
+        const canvas = document.getElementById('matrixCanvas');
+        const ctx = canvas.getContext('2d');
+
+        // Set canvas full-screen size
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const matrixChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789@#$%^&*()*&^%".split("");
+        const fontSize = 16;
+        const columns = canvas.width / fontSize;
+
+        const drops = [];
+        for (let x = 0; x < columns; x++) {
+            drops[x] = 1;
+        }
+
+        function drawMatrix() {
+            ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = "rgba(0, 255, 0, 0.4)"; // Green matrix color
+            ctx.font = fontSize + "px monospace";
+
+            for (let i = 0; i < drops.length; i++) {
+                const text = matrixChars[Math.floor(Math.random() * matrixChars.length)];
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+        }
+
+        setInterval(drawMatrix, 33);
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+    </script>
+</body>
+</html>
